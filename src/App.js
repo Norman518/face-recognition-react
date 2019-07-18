@@ -6,6 +6,7 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Signin from "./components/Signin/Signin";
+import Register from "./components/Register/Register";
 import Rank from "./components/Rank/Rank";
 import Particles from "react-particles-js";
 import Clarifai from "clarifai";
@@ -28,7 +29,7 @@ const particleOptions = {
 class App extends Component {
   constructor() {
     super();
-    this.state = { input: "", imageURL: "", box: {} };
+    this.state = { input: "", imageURL: "", box: {}, route: "signin" };
   }
   calculateBox = data => {
     const boxCoordinates =
@@ -56,20 +57,32 @@ class App extends Component {
       .then(response => this.displayBox(this.calculateBox(response)))
       .catch(err => console.log(err));
   };
+  onRouteChange = route => {
+    this.setState({ route: route });
+  };
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
-        <Navigation />
-        <Signin />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onBtnSubmit={this.onBtnSubmit}
-        />
-
-        <FaceRecognition box={this.state.box} imageURL={this.state.imageURL} />
+        <Navigation onRouteChange={this.onRouteChange} />{" "}
+        {this.state.route === "home" ? (
+          <div>
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onBtnSubmit={this.onBtnSubmit}
+            />
+            <FaceRecognition
+              box={this.state.box}
+              imageURL={this.state.imageURL}
+            />{" "}
+          </div>
+        ) : this.state.route === "signin" ? (
+          <Signin onRouteChange={this.onRouteChange} />
+        ) : (
+          <Register onRouteChange={this.onRouteChange} />
+        )}
       </div>
     );
   }
