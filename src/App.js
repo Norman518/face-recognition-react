@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import Navigation from "./components/Navigation/Navigation.js";
-import Logo from "./components/Logo/Logo.js";
-import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm.js";
-import FaceRecognition from "./components/FaceRecognition/FaceRecognition.js";
-import Rank from "./components/Rank/Rank.js";
 import "tachyons";
+import Navigation from "./components/Navigation/Navigation";
+import Logo from "./components/Logo/Logo";
+import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Signin from "./components/Signin/Signin";
+import Rank from "./components/Rank/Rank";
 import Particles from "react-particles-js";
-
 import Clarifai from "clarifai";
+
 const app = new Clarifai.App({
   apiKey: "ab57f32e77784ec78903e6058d77a343"
 });
@@ -60,6 +61,7 @@ class App extends Component {
       <div className="App">
         <Particles className="particles" params={particleOptions} />
         <Navigation />
+        <Signin />
         <Logo />
         <Rank />
         <ImageLinkForm
