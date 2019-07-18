@@ -1,15 +1,13 @@
-
-
 import React from "react";
 
-
-const  FaceRecognition = ({imageURL}) => {
+const FaceRecognition = ({ imageURL }) => {
   return (
-    <div className='center'>
-     <img src={imageURL} alt='face img'></img>
+    <div className="center ma">
+      <div className=" absolute mt2">
+        <img src={imageURL} alt="face img" width="800rem" height="auto" />
+      </div>
     </div>
   );
 };
 
 export default FaceRecognition;
-;
