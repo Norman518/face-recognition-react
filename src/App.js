@@ -29,7 +29,13 @@ const particleOptions = {
 class App extends Component {
   constructor() {
     super();
-    this.state = { input: "", imageURL: "", box: {}, route: "signin", isSignedIn: false };
+    this.state = {
+      input: "",
+      imageURL: "",
+      box: {},
+      route: "signin",
+      isSignedIn: false
+    };
   }
   calculateBox = data => {
     const boxCoordinates =
@@ -51,26 +57,30 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
   onBtnSubmit = () => {
-    this.setState({ imageURL: this.state.input });
+    this.setState({imageURL: this.state.input});
     app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .predict(Clarifai.FACE_DETECT_MODEL,    this.state.input)
       .then(response => this.displayBox(this.calculateBox(response)))
       .catch(err => console.log(err));
   };
   onRouteChange = route => {
-    if (route === 'signout') {
-this.setState({isSignedIn: false})
-    } else if (route === 'home'){
-      this.setState({isSignedIn: true})
+    if (route === "signout") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
+      this.setState({ isSignedIn: true });
     }
     this.setState({ route: route });
   };
   render() {
+    const { isSignedIn, imageURL, route, box } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />{" "}
-        {this.state.route === "home" ? (
+        <Navigation
+          isSignedIn={isSignedIn}
+          onRouteChange={this.onRouteChange}
+        />{" "}
+        {route === "home" ? (
           <div>
             <Logo />
             <Rank />
@@ -78,12 +88,9 @@ this.setState({isSignedIn: false})
               onInputChange={this.onInputChange}
               onBtnSubmit={this.onBtnSubmit}
             />
-            <FaceRecognition
-              box={this.state.box}
-              imageURL={this.state.imageURL}
-            />{" "}
+            <FaceRecognition box={box} imageURL={imageURL} />{" "}
           </div>
-        ) : this.state.route === "signin" ? (
+        ) : route === "signin" ? (
           <Signin onRouteChange={this.onRouteChange} />
         ) : (
           <Register onRouteChange={this.onRouteChange} />
