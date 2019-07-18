@@ -29,7 +29,7 @@ const particleOptions = {
 class App extends Component {
   constructor() {
     super();
-    this.state = { input: "", imageURL: "", box: {}, route: "signin" };
+    this.state = { input: "", imageURL: "", box: {}, route: "signin", isSignedIn: false };
   }
   calculateBox = data => {
     const boxCoordinates =
@@ -58,13 +58,18 @@ class App extends Component {
       .catch(err => console.log(err));
   };
   onRouteChange = route => {
+    if (route === 'signout') {
+this.setState({isSignedIn: false})
+    } else if (route === 'home'){
+      this.setState({isSignedIn: true})
+    }
     this.setState({ route: route });
   };
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
-        <Navigation onRouteChange={this.onRouteChange} />{" "}
+        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />{" "}
         {this.state.route === "home" ? (
           <div>
             <Logo />
