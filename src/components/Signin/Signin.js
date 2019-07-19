@@ -27,9 +27,10 @@ class Signin extends React.Component {
       })
     })
       .then(response => response.json())
-      .then(user => {
+      .then(user => {     
         if (user.id) {
           this.props.loadUser(user);
+
           this.props.onRouteChange("home");
         }
       });
@@ -48,7 +49,7 @@ class Signin extends React.Component {
                   Email
                 </label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="pa2 b--black input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="email"
                   name="email-address"
                   id="email-address"
@@ -60,7 +61,7 @@ class Signin extends React.Component {
                   Password
                 </label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="b b--black pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="password"
                   name="password"
                   id="password"
