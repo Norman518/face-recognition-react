@@ -37,6 +37,7 @@ class App extends Component {
       isSignedIn: false
     };
   }
+
   calculateBox = data => {
     const boxCoordinates =
       data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -57,9 +58,9 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
   onBtnSubmit = () => {
-    this.setState({imageURL: this.state.input});
+    this.setState({ imageURL: this.state.input });
     app.models
-      .predict(Clarifai.FACE_DETECT_MODEL,    this.state.input)
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => this.displayBox(this.calculateBox(response)))
       .catch(err => console.log(err));
   };
