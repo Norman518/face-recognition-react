@@ -9,16 +9,11 @@ import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import Entries from "./components/Entries/Entries";
 import Particles from "react-particles-js";
-import Clarifai from "clarifai";
-
-const app = new Clarifai.App({
-  apiKey: "ab57f32e77784ec78903e6058d77a343"
-});
 
 const particleOptions = {
   particles: {
     number: {
-      value: 100,
+      value: 120,
       density: {
         enable: true,
         value_area: 800
@@ -79,9 +74,14 @@ class App extends Component {
   };
   onImgSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch("http://localhost:3000/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+      .then(response => response.json())
       .then(response => {
         if (response) {
           fetch("http://localhost:3000/image", {
@@ -92,15 +92,16 @@ class App extends Component {
             })
           })
             .then(response => response.json())
-
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count }));
-            });
+            })
+            .catch(console.log);
         }
         this.displayBox(this.calculateBox(response));
       })
       .catch(err => console.log(err));
   };
+
   onRouteChange = route => {
     if (route === "signout") {
       this.setState(initialState);
