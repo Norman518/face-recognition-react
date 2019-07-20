@@ -57,34 +57,27 @@ class App extends Component {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    let boxCoorsLeft = [];
-    let boxCoorsTop = [];
-    let boxCoorsRight = [];
-    let boxCoorsBottom = [];
+    let boxCoordinates = [];
+
     for (let i = 0; i < data.outputs[0].data.regions.length; i++) {
-      boxCoorsLeft.push(
-        data.outputs[0].data.regions[i].region_info.bounding_box.left_col *
-          width
-      );
-      boxCoorsTop.push(
-        data.outputs[0].data.regions[i].region_info.bounding_box.top_row *
+      boxCoordinates.push({
+        left:
+          data.outputs[0].data.regions[i].region_info.bounding_box.left_col *
+          width,
+        top:
+          data.outputs[0].data.regions[i].region_info.bounding_box.top_row *
+          height,
+        right:
+          data.outputs[0].data.regions[i].region_info.bounding_box.right_col *
+          width,
+        bottom:
+          data.outputs[0].data.regions[i].region_info.bounding_box.bottom_row *
           height
-      );
-      boxCoorsRight.push(
-        data.outputs[0].data.regions[i].region_info.bounding_box.right_col *
-          width
-      );
-      boxCoorsBottom.push(
-        data.outputs[0].data.regions[i].region_info.bounding_box.bottom_row *
-          height
-      );
+      });
     }
 
     return {
-      boxCoorsLeft,
-      boxCoorsTop,
-      boxCoorsRight,
-      boxCoorsBottom
+      boxCoordinates
     };
   };
   displayBoxes = boxes => {
