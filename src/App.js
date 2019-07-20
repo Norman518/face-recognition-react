@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
-import "tachyons";
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -9,6 +7,8 @@ import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import Entries from "./components/Entries/Entries";
 import Particles from "react-particles-js";
+import "./App.css";
+import "tachyons";
 
 const particleOptions = {
   particles: {
@@ -24,7 +24,7 @@ const particleOptions = {
 const initialState = {
   input: "",
   imageUrl: "",
-  box: {},
+  boxes: {},
   route: "signin",
   isSignedIn: false,
   user: {
@@ -53,21 +53,42 @@ class App extends Component {
     });
   };
 
-  calculateBox = data => {
-    const boxCoordinates =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
+  calculateBoxes = data => {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
+    let boxCoorsLeft = [];
+    let boxCoorsTop = [];
+    let boxCoorsRight = [];
+    let boxCoorsBottom = [];
+    for (let i = 0; i < data.outputs[0].data.regions.length; i++) {
+      boxCoorsLeft.push(
+        data.outputs[0].data.regions[i].region_info.bounding_box.left_col *
+          width
+      );
+      boxCoorsTop.push(
+        data.outputs[0].data.regions[i].region_info.bounding_box.top_row *
+          height
+      );
+      boxCoorsRight.push(
+        data.outputs[0].data.regions[i].region_info.bounding_box.right_col *
+          width
+      );
+      boxCoorsBottom.push(
+        data.outputs[0].data.regions[i].region_info.bounding_box.bottom_row *
+          height
+      );
+    }
+
     return {
-      left: boxCoordinates.left_col * width,
-      top: boxCoordinates.top_row * height,
-      right: width - boxCoordinates.right_col * width,
-      bottom: height - boxCoordinates.bottom_row * height
+      boxCoorsLeft,
+      boxCoorsTop,
+      boxCoorsRight,
+      boxCoorsBottom
     };
   };
-  displayBox = box => {
-    this.setState({ box });
+  displayBoxes = boxes => {
+    this.setState({ boxes });
   };
   onInputChange = event => {
     this.setState({ input: event.target.value });
@@ -97,7 +118,7 @@ class App extends Component {
             })
             .catch(console.log);
         }
-        this.displayBox(this.calculateBox(response));
+        this.displayBoxes(this.calculateBoxes(response));
       })
       .catch(err => console.log(err));
   };
@@ -111,7 +132,7 @@ class App extends Component {
     this.setState({ route: route });
   };
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, boxes } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -130,7 +151,7 @@ class App extends Component {
               onInputChange={this.onInputChange}
               onImgSubmit={this.onImgSubmit}
             />
-            <FaceRecognition box={box} imageUrl={imageUrl} />
+            <FaceRecognition boxes={boxes} imageUrl={imageUrl} />
           </div>
         ) : route === "register" ? (
           <Register
