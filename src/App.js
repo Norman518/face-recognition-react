@@ -58,27 +58,33 @@ class App extends Component {
     const width = Number(image.width);
     const height = Number(image.height);
     let boxCoordinates = [];
-
-    for (let i = 0; i < data.outputs[0].data.regions.length; i++) {
-      boxCoordinates.push({
-        left:
-          data.outputs[0].data.regions[i].region_info.bounding_box.left_col *
-          width,
-        top:
-          data.outputs[0].data.regions[i].region_info.bounding_box.top_row *
-          height,
-        right:
-          data.outputs[0].data.regions[i].region_info.bounding_box.right_col *
-          width,
-        bottom:
-          data.outputs[0].data.regions[i].region_info.bounding_box.bottom_row *
-          height
-      });
+    if (data.outputs[0].data.regions) {
+      for (let i = 0; i < data.outputs[0].data.regions.length; i++) {
+        boxCoordinates.push({
+          left:
+            data.outputs[0].data.regions[i].region_info.bounding_box.left_col *
+            width,
+          top:
+            data.outputs[0].data.regions[i].region_info.bounding_box.top_row *
+            height,
+          right:
+            data.outputs[0].data.regions[i].region_info.bounding_box.right_col *
+            width,
+          bottom:
+            data.outputs[0].data.regions[i].region_info.bounding_box
+              .bottom_row * height
+        });
+      }
+      return {
+        boxCoordinates
+      };
+    } else {
+      alert("Image has no faces!");
+      boxCoordinates = [];
+      return {
+        boxCoordinates
+      };
     }
-
-    return {
-      boxCoordinates
-    };
   };
   displayBoxes = boxes => {
     this.setState({ boxes });
