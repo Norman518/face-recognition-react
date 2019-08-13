@@ -94,7 +94,8 @@ class App extends Component {
   };
   onImgSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("https://enigmatic-mountain-79795.herokuapp.com/imageurl", {
+    //fetch("https://enigmatic-mountain-79795.herokuapp.com/imageurl", {
+    fetch("http://localhost:3000/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -104,7 +105,8 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch("https://enigmatic-mountain-79795.herokuapp.com/image", {
+          //fetch("https://enigmatic-mountain-79795.herokuapp.com/image", {
+          fetch("http://localhost:3000/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
