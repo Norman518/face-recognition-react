@@ -144,7 +144,14 @@ class App extends Component {
   };
 
   render() {
-    const { isSignedIn, imageUrl, route, boxes, isProfileOpen, user } = this.state;
+    const {
+      isSignedIn,
+      imageUrl,
+      route,
+      boxes,
+      isProfileOpen,
+      user
+    } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -158,6 +165,7 @@ class App extends Component {
             <Profile
               isProfileOpen={isProfileOpen}
               toggleModal={this.toggleModal}
+              loadUser={this.loadUser}
               user={user}
             />
           </Modal>
