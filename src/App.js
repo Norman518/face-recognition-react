@@ -7,8 +7,9 @@ import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import Entries from "./components/Entries/Entries";
 import Particles from "react-particles-js";
+import Modal from "./components/Modal/Modal";
+import Profile from "./components/Profile/Profile";
 import "./App.css";
-import "tachyons";
 
 const particleOptions = {
   particles: {
@@ -27,6 +28,7 @@ const initialState = {
   boxes: {},
   route: "home",
   isSignedIn: true,
+  isProfileOpen: false,
   user: {
     id: "",
     name: "",
@@ -132,18 +134,36 @@ class App extends Component {
     }
     this.setState({ route: route });
   };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isProfileOpen: !prevState.isProfileOpen
+    }));
+  };
+
   render() {
-    const { isSignedIn, imageUrl, route, boxes } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isProfileOpen } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
         <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
+          toggleModal={this.toggleModal}
         />
+        {isProfileOpen && (
+          <Modal>
+            <Profile
+              isProfileOpen={isProfileOpen}
+              toggleModal={this.toggleModal}
+            />
+          </Modal>
+        )}
         {route === "home" ? (
           <div>
             <Logo />
+
             <Entries
               name={this.state.user.name}
               entries={this.state.user.entries}

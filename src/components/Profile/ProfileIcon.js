@@ -16,8 +16,14 @@ class ProfileIcon extends Component {
   }
 
   toggle = () => {
-    this.setState({ btnDropleft: !this.state.btnDropleft });
+    this.setState(prevState => ({
+      btnDropleft: !prevState.btnDropleft
+    }));
   };
+
+  /*  toggle = () => {
+    this.setState({ btnDropleft: !this.state.btnDropleft });
+  }; */
 
   render() {
     return (
@@ -41,7 +47,9 @@ class ProfileIcon extends Component {
             />
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem>View Profile</DropdownItem>
+            <DropdownItem onClick={this.props.toggleModal}>
+              View Profile
+            </DropdownItem>
             <DropdownItem onClick={() => this.props.onRouteChange("signout")}>
               Sign Out
             </DropdownItem>
