@@ -72,10 +72,10 @@ class App extends Component {
                   this.loadUser(user);
                   this.onRouteChange("home");
                 }
-              });
+              })
+              .catch(console.log);
           }
-        })
-        .catch(console.log);
+        });
     }
   }
   loadUser = data => {
@@ -117,14 +117,15 @@ class App extends Component {
       };
     } else {
       alert("Image has no faces!");
-      boxCoordinates = [];
       return {
         boxCoordinates
       };
     }
   };
   displayBoxes = boxes => {
-    this.setState({ boxes });
+    if (boxes) {
+      this.setState({ boxes });
+    }
   };
   onInputChange = event => {
     this.setState({ input: event.target.value });
@@ -134,7 +135,11 @@ class App extends Component {
     //fetch("https://enigmatic-mountain-79795.herokuapp.com/imageurl", {
     fetch("http://localhost:3000/imageurl", {
       method: "post",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: window.sessionStorage.getItem("token")
+      },
+
       body: JSON.stringify({
         input: this.state.input
       })
@@ -145,7 +150,10 @@ class App extends Component {
           //fetch("https://enigmatic-mountain-79795.herokuapp.com/image", {
           fetch("http://localhost:3000/image", {
             method: "put",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: window.sessionStorage.getItem("token")
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })
