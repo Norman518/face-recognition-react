@@ -41,7 +41,7 @@ class ProfileIcon extends Component {
             aria-expanded={this.state.dropdownOpen}
           >
             <img
-              src="http://tachyons.io/img/logo.jpg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW3f3abNEmRxqBwGyfsX6KLBrvvPop7AMELZI-eQQ1frhbjT2axA"
               className="br-100 ba h3 w3 dib"
               alt="avatar"
             />

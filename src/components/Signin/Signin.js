@@ -17,12 +17,16 @@ class Signin extends React.Component {
     this.setState({ signInPassword: event.target.value });
   };
 
+  saveAuthTokenInSession = token => {
+    window.sessionStorage.setItem("token", token);
+  };
+
   onSubmitSignIn = () => {
     if (this.state.signInEmail === "" || this.state.signInPassword === "") {
       alert("Do not leave any fields blank!");
     } else {
-/*       fetch("https://enigmatic-mountain-79795.herokuapp.com/signin", { */
-fetch("http://localhost:3000/signin", {
+      /*       fetch("https://enigmatic-mountain-79795.herokuapp.com/signin", { */
+      fetch("http://localhost:3000/signin", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -31,9 +35,10 @@ fetch("http://localhost:3000/signin", {
         })
       })
         .then(response => response.json())
-        .then(user => {
-          if (user.id) {
-            this.props.loadUser(user);
+        .then(data => {
+          if (data.userId && data.success === "true") {
+            this.saveAuthTokenInSession(data.token);
+            this.props.loadUser(data);
             this.props.onRouteChange("home");
           }
         });
