@@ -36,9 +36,9 @@ class Signin extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          if (data.userId && data.success === "true") {
+          if (data.id && data.success === "true") {
             this.saveAuthTokenInSession(data.token);
-            fetch(`http://localhost:3000/profile/${data.userId}`, {
+            fetch(`http://localhost:3000/profile/${data.id}`, {
               method: "get",
               headers: {
                 "Content-Type": "application/json",

@@ -35,7 +35,6 @@ const initialState = {
     email: "",
     password: "",
     entries: 0,
-    age: 0,
     joined: ""
   }
 };
@@ -231,6 +230,14 @@ class App extends Component {
             loadUser={this.loadUser}
             onRouteChange={this.onRouteChange}
           />
+        ) : route === "signout" ? (
+          (sessionStorage.removeItem("token"),
+          (
+            <Signin
+              loadUser={this.loadUser}
+              onRouteChange={this.onRouteChange}
+            />
+          ))
         ) : (
           <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         )}
