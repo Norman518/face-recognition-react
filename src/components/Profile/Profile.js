@@ -19,7 +19,7 @@ class Profile extends Component {
   };
 
   onProfileUpdate = data => {
-    fetch(`https://enigmatic-mountain-79795.herokuapp.com/profile/${this.props.user.id}`, {
+    fetch(`http://localhost:3000/profile/${this.props.user.id}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
