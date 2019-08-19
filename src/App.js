@@ -47,7 +47,7 @@ class App extends Component {
   componentDidMount() {
     const token = window.sessionStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:3000/signin", {
+      fetch("https://enigmatic-mountain-79795.herokuapp.com/signin", {
         method: "post",
 
         headers: {
@@ -58,7 +58,7 @@ class App extends Component {
         .then(resp => resp.json())
         .then(data => {
           if (data && data.id) {
-            fetch(`http://localhost:3000/profile/${data.id}`, {
+            fetch(`https://enigmatic-mountain-79795.herokuapp.com/profile/${data.id}`, {
               method: "get",
               headers: {
                 "Content-Type": "application/json",
@@ -132,7 +132,7 @@ class App extends Component {
   onImgSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     //fetch("https://enigmatic-mountain-79795.herokuapp.com/imageurl", {
-    fetch("http://localhost:3000/imageurl", {
+    fetch("https://enigmatic-mountain-79795.herokuapp.com/imageurl", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +147,7 @@ class App extends Component {
       .then(response => {
         if (response) {
           //fetch("https://enigmatic-mountain-79795.herokuapp.com/image", {
-          fetch("http://localhost:3000/image", {
+          fetch("https://enigmatic-mountain-79795.herokuapp.com/image", {
             method: "put",
             headers: {
               "Content-Type": "application/json",

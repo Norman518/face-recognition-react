@@ -31,7 +31,7 @@ class Register extends React.Component {
       alert("Do not leave any fields blank!");
     } else {
      /*  fetch("https://enigmatic-mountain-79795.herokuapp.com/register", { */
-        fetch("http://localhost:3000/register", {
+        fetch("https://enigmatic-mountain-79795.herokuapp.com/register", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

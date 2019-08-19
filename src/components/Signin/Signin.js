@@ -26,7 +26,7 @@ class Signin extends React.Component {
       alert("Do not leave any fields blank!");
     } else {
       /*       fetch("https://enigmatic-mountain-79795.herokuapp.com/signin", { */
-      fetch("http://localhost:3000/signin", {
+      fetch("https://enigmatic-mountain-79795.herokuapp.com/signin", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -38,7 +38,7 @@ class Signin extends React.Component {
         .then(data => {
           if (data.id && data.success === "true") {
             this.saveAuthTokenInSession(data.token);
-            fetch(`http://localhost:3000/profile/${data.id}`, {
+            fetch(`https://enigmatic-mountain-79795.herokuapp.com/profile/${data.id}`, {
               method: "get",
               headers: {
                 "Content-Type": "application/json",
