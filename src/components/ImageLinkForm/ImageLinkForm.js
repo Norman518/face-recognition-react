@@ -4,8 +4,6 @@ import "./ImageLinkForm.css";
 const ImageLinkForm = ({ onInputChange, onImgSubmit }) => {
   return (
     <div>
-      <p className="f3">{"Detects Faces In Pictures"}</p>
-
       <div className="center form pa4 br3 shadow-5">
         <input
           type="text"
