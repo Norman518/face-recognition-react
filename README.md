@@ -2,5 +2,4 @@
 ![](https://github.com/Norman518/face-recognition-react/blob/master/screenshots/Screenshot_2.png)
 ![](https://github.com/Norman518/face-recognition-react/blob/master/screenshots/Screenshot_3.png)
 ![](https://github.com/Norman518/face-recognition-react/blob/master/screenshots/Screenshot_4.png)
-![](https://github.com/Norman518/face-recognition-react/blob/master/screenshots/Screenshot_5.png)
 ![](https://github.com/Norman518/face-recognition-react/blob/master/screenshots/Screenshot_6.png)
